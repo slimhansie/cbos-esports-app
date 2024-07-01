@@ -50,7 +50,6 @@ async function create_match(conn, match_data) {
   const sql =
     "INSERT INTO matches (team1_id, team2_id, outcome_id, match_format_id, title) VALUES (?, ?, ?, ?, ?)";
   const [result] = await conn.execute(sql, values);
-  console.log(result);
   if (result.insertId) {
     return true;
   } else {
