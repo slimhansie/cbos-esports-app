@@ -22,5 +22,5 @@ This program requires node.js and a MySQL server.
 1. Navigate to `/teams/create` and create two teams.
 2. Edit and delete teams from `/teams`.
 3. Navigate to `/matches/create` and create a match.
-4. Edit and add rounds to matches from `matches`.
+4. Edit and add rounds to matches from `/matches`.
 5. Navigate to `/` to view results.
