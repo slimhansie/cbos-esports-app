@@ -6,6 +6,12 @@
 </script>
 
 <label class="label">
-  <span>{label}</span>
-  <input {name} class="input" type="text" {placeholder} {value} />
+  <span class="roboto-regular">{label}</span>
+  <input
+    {name}
+    class="input roboto-regular"
+    type="text"
+    {placeholder}
+    {value}
+  />
 </label>

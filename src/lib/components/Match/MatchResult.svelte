@@ -2,22 +2,25 @@
   import MatchRoundResult from "./MatchRoundResult.svelte";
 
   export let match_data;
+  export let rounds;
+  export let match_outcomes;
 
   let is_display_rounds = false;
 
-  let match_date = new Date(match_data.match_starting_time);
+  const team1_score = match_outcomes.find((m) => m.outcome_id == 1)?.count;
+  const team2_score = match_outcomes.find((m) => m.outcome_id == 2)?.count;
 
-  let match_date_display = match_date.toLocaleString("default", {
+  const match_date = new Date(match_data.match_starting_time);
+
+  const match_date_display = match_date.toLocaleString("default", {
     day: "2-digit",
     month: "long",
     year: "numeric",
   });
-  let match_time_display = match_date.toLocaleString("default", {
+  const match_time_display = match_date.toLocaleString("default", {
     hour: "2-digit",
     minute: "2-digit",
   });
-
-  let match_outcome = match_data.outcome;
 
   function toggle_display_rounds() {
     is_display_rounds = !is_display_rounds;
@@ -43,28 +46,28 @@
       <!-- Team 1 -->
       <div class="flex items-center space-x-3">
         <div class="roboto-regular text-xl">{match_data.team1_title}</div>
-        <div class="w-8 aspect-square rounded-full bg-primary-300" />
+        <div class="w-8 aspect-square rounded-full bg-primary-500" />
       </div>
       <!-- Score -->
       <div class="mx-5">
         <span class="roboto-regular text-nowrap"
-          >{match_data.team1_score ?? 2} - {match_data.team2_score ?? 3}</span
+          >{team1_score ?? 0} - {team2_score ?? 0}</span
         >
       </div>
       <!-- Team 2 -->
       <div class="flex items-center space-x-3">
-        <div class="w-8 aspect-square rounded-full bg-secondary-200" />
+        <div class="w-8 aspect-square rounded-full bg-secondary-500" />
         <div class="roboto-regular text-xl">{match_data.team2_title}</div>
       </div>
     </div>
     <!-- Spacer -->
-    <div class="ml-auto flex-1"></div>
+    <div class="ml-auto flex flex-1"></div>
   </button>
   <!-- Rounds -->
   {#if is_display_rounds}
     <div class="bg-surface-600 divide-y-2 divide-surface-500">
-      {#each match_data.rounds ?? [] as round}
-        <MatchRoundResult round_data={round} teams_data={match_data} />
+      {#each rounds ?? [] as round}
+        <MatchRoundResult {round} {match_data} />
       {/each}
     </div>
   {/if}

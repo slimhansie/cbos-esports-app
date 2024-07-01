@@ -1,4 +1,11 @@
 -- phpMyAdmin SQL Dump
+-- version 5.1.1deb5ubuntu1
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: Jul 01, 2024 at 10:17 PM
+-- Server version: 8.0.37-0ubuntu0.22.04.3
+-- PHP Version: 8.1.2-1ubuntu2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,7 +34,8 @@ CREATE TABLE `matches` (
   `outcome_id` int NOT NULL,
   `match_format_id` int NOT NULL,
   `title` varchar(255) NOT NULL,
-  `starting_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `starting_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -38,17 +46,18 @@ CREATE TABLE `matches` (
 
 CREATE TABLE `match_formats` (
   `match_format_id` int NOT NULL,
-  `title` varchar(255) NOT NULL
+  `title` varchar(255) NOT NULL,
+  `round_limit` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `match_formats`
 --
 
-INSERT INTO `match_formats` (`match_format_id`, `title`) VALUES
-(1, 'BO1'),
-(2, 'BO3'),
-(3, 'BO5');
+INSERT INTO `match_formats` (`match_format_id`, `title`, `round_limit`) VALUES
+(1, 'BO1', 1),
+(2, 'BO3', 3),
+(3, 'BO5', 5);
 
 -- --------------------------------------------------------
 
@@ -83,7 +92,7 @@ CREATE TABLE `rounds` (
   `outcome_id` int NOT NULL,
   `round_format_id` int NOT NULL,
   `title` varchar(255) NOT NULL,
-  `starting_time` timestamp NOT NULL
+  `starting_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -96,6 +105,15 @@ CREATE TABLE `round_formats` (
   `round_format_id` int NOT NULL,
   `title` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `round_formats`
+--
+
+INSERT INTO `round_formats` (`round_format_id`, `title`) VALUES
+(1, '1v1'),
+(2, '3v3'),
+(3, '5v5');
 
 -- --------------------------------------------------------
 
@@ -189,7 +207,7 @@ ALTER TABLE `rounds`
 -- AUTO_INCREMENT for table `round_formats`
 --
 ALTER TABLE `round_formats`
-  MODIFY `round_format_id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `round_format_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `teams`

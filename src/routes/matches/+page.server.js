@@ -10,7 +10,7 @@ export async function load() {
 }
 
 async function get_matches(conn) {
-  const sql = "SELECT * FROM matches";
+  const sql = "SELECT * FROM matches WHERE is_deleted = 0";
   const [result] = await conn.execute(sql);
   return result;
 }

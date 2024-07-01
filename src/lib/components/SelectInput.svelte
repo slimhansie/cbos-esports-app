@@ -10,10 +10,11 @@
 </script>
 
 <label class="label">
-  <span>{label}</span>
+  <span class="roboto-regular">{label}</span>
   <select {name} {label} class="select" {value}>
     {#each options as option}
-      <option value={option.value}>{option.label}</option>
+      <option class="roboto-regular" value={option.value}>{option.label}</option
+      >
     {/each}
   </select>
 </label>

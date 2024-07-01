@@ -36,8 +36,8 @@ export async function POST({ request, params }) {
     });
   }
 
-  let is_editor = await edit_match(mysqlconn, match_id, payload);
-  if (!is_editor) {
+  let is_edited = await edit_match(mysqlconn, match_id, payload);
+  if (!is_edited) {
     error(500, {
       message: "Create failed",
     });
@@ -78,7 +78,7 @@ async function edit_match(conn, match_id, match_data) {
 }
 
 async function delete_match(conn, match_id) {
-  const sql = "DELETE FROM matches WHERE match_id = ?";
+  const sql = "UPDATE matches SET is_deleted = 1 WHERE match_id = ?";
   const values = [match_id];
   const [result] = await conn.execute(sql, values);
   if (result.affectedRows) {
